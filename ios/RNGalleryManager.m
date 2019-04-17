@@ -136,8 +136,9 @@ RCT_EXPORT_METHOD(getAssets:(NSDictionary *)params
     NSString *uit = ((PHAssetResource*)resources[0]).uniformTypeIdentifier;
     NSString *mimeType = (NSString *)CFBridgingRelease(UTTypeCopyPreferredTagWithClass((__bridge CFStringRef _Nonnull)(uit), kUTTagClassMIMEType));
     CFStringRef extension = UTTypeCopyPreferredTagWithClass((__bridge CFStringRef _Nonnull)(uit), kUTTagClassFilenameExtension);
-    
+    id size = [((PHAssetResource*)resources[0]) valueForKey:@"fileSize"];
     [assets addObject:@{
+                        @"size":size,
                         @"type": [self getMediaType:([asset mediaType])],
                         @"width": @([asset pixelWidth]),
                         @"height": @([asset pixelHeight]),
